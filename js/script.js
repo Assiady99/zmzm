@@ -3,35 +3,105 @@
 // Interactive Features & Advanced Animations
 // ============================================
 
-// ========== VIEWPORT HEIGHT FIX FOR MOBILE ==========
-// Use a CSS variable --vh (1% of viewport height in px) to avoid mobile browser
-// behaviour where 100vh changes as address bars hide/show. We set --vh on
-// load/resize/orientationchange and trigger a resize/scroll to apply initial transforms.
-// Use visualViewport API if available for better mobile support.
+// ========== IMPROVED DEBOUNCE FUNCTION ==========
+function debounce(func, wait = 10, immediate = false) {
+    let timeout;
+    return function executedFunction(...args) {
+        const later = () => {
+            timeout = null;
+            if (!immediate) func(...args);
+        };
+        const callNow = immediate && !timeout;
+        clearTimeout(timeout);
+        timeout = setTimeout(later, wait);
+        if (callNow) func(...args);
+    };
+}
+
+// ========== VIEWPORT HEIGHT FIX FOR MOBILE - IMPROVED ==========
 function setVh() {
-    const vh = (window.visualViewport ? window.visualViewport.height : window.innerHeight) * 0.01;
+    let vh;
+    
+    // Use visualViewport if available for accurate mobile height
+    if (window.visualViewport) {
+        vh = window.visualViewport.height * 0.01;
+    } else {
+        // Fallback for browsers without visualViewport
+        vh = window.innerHeight * 0.01;
+    }
+    
+    // Set both CSS variables consistently
     document.documentElement.style.setProperty('--vh', `${vh}px`);
+    document.documentElement.style.setProperty('--viewport-height', `${vh * 100}px`);
+    
+    console.log('Viewport height updated:', vh * 100, 'px');
 }
 
-// Initialize and keep updated
-setVh();
-window.addEventListener('resize', setVh);
-window.addEventListener('orientationchange', setVh);
-
-// Use visualViewport API for dynamic viewport height changes on mobile
-if (window.visualViewport) {
-    window.visualViewport.addEventListener('resize', setVh);
-} else {
-    // Fallback for browsers without visualViewport support
-    window.addEventListener('scroll', debounce(setVh, 100));
+// ========== CRITICAL ELEMENT INITIALIZATION ==========
+function initializeCriticalElements() {
+    // تهيئة العناصر التي تعتمد على Viewport Height
+    const heroSection = document.querySelector('.hero');
+    const mobileMenu = document.querySelector('.nav-menu');
+    
+    if (heroSection) {
+        heroSection.style.minHeight = `${window.innerHeight}px`;
+    }
+    
+    // إعادة حساب المواقع بعد التهيئة
+    setTimeout(() => {
+        if (typeof setActiveLink === 'function') {
+            setActiveLink();
+        }
+        if (typeof revealOnScroll === 'function') {
+            revealOnScroll();
+        }
+    }, 200);
 }
 
-window.addEventListener('load', () => {
-    setVh();
-    // trigger handlers that depend on scroll/resize so the initial layout is correct
-    window.dispatchEvent(new Event('resize'));
-    window.dispatchEvent(new Event('scroll'));
-});
+// ========== INITIALIZATION CHECK ==========
+function checkInitialization() {
+    const vhValue = getComputedStyle(document.documentElement).getPropertyValue('--vh');
+    const viewportHeight = getComputedStyle(document.documentElement).getPropertyValue('--viewport-height');
+    
+    console.log('Initialization Check:');
+    console.log('--vh:', vhValue);
+    console.log('--viewport-height:', viewportHeight);
+    console.log('Window innerHeight:', window.innerHeight);
+    
+    if (window.visualViewport) {
+        console.log('Visual Viewport height:', window.visualViewport.height);
+    }
+}
+
+// ========== INITIALIZE VIEWPORT HEIGHT SYSTEM ==========
+function initializeViewportSystem() {
+    // Initialize immediately when DOM is ready
+    setVh(); // Initial set
+    
+    // Force reflow and recalc
+    setTimeout(() => {
+        setVh();
+        // Trigger resize to update any layout dependencies
+        window.dispatchEvent(new Event('resize'));
+    }, 100);
+
+    // Update on all relevant events
+    window.addEventListener('resize', debounce(setVh, 100));
+    window.addEventListener('orientationchange', function() {
+        setTimeout(setVh, 150); // Delay for orientation change complete
+    });
+
+    // Use visualViewport API if available for dynamic updates
+    if (window.visualViewport) {
+        window.visualViewport.addEventListener('resize', debounce(setVh, 100));
+    }
+
+    // Initialize critical elements
+    initializeCriticalElements();
+    
+    // Check initialization
+    setTimeout(checkInitialization, 300);
+}
 
 // ========== SMOOTH SCROLL BEHAVIOR ==========
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -71,18 +141,20 @@ window.addEventListener('scroll', () => {
 const hamburger = document.getElementById('hamburger');
 const navMenu = document.getElementById('navMenu');
 
-hamburger.addEventListener('click', () => {
-    hamburger.classList.toggle('active');
-    navMenu.classList.toggle('active');
-});
+if (hamburger && navMenu) {
+    hamburger.addEventListener('click', () => {
+        hamburger.classList.toggle('active');
+        navMenu.classList.toggle('active');
+    });
 
-// Close menu when clicking outside
-document.addEventListener('click', (e) => {
-    if (!e.target.closest('.nav-container')) {
-        hamburger.classList.remove('active');
-        navMenu.classList.remove('active');
-    }
-});
+    // Close menu when clicking outside
+    document.addEventListener('click', (e) => {
+        if (!e.target.closest('.nav-container')) {
+            hamburger.classList.remove('active');
+            navMenu.classList.remove('active');
+        }
+    });
+}
 
 // ========== ACTIVE NAV LINK ON SCROLL ==========
 const sections = document.querySelectorAll('section[id]');
@@ -106,25 +178,27 @@ function setActiveLink() {
     });
 }
 
-window.addEventListener('scroll', setActiveLink);
+window.addEventListener('scroll', debounce(setActiveLink, 10));
 
 // ========== SCROLL TO TOP BUTTON ==========
 const scrollTopBtn = document.getElementById('scrollTop');
 
-window.addEventListener('scroll', () => {
-    if (window.pageYOffset > 500) {
-        scrollTopBtn.classList.add('visible');
-    } else {
-        scrollTopBtn.classList.remove('visible');
-    }
-});
-
-scrollTopBtn.addEventListener('click', () => {
-    window.scrollTo({
-        top: 0,
-        behavior: 'smooth'
+if (scrollTopBtn) {
+    window.addEventListener('scroll', () => {
+        if (window.pageYOffset > 500) {
+            scrollTopBtn.classList.add('visible');
+        } else {
+            scrollTopBtn.classList.remove('visible');
+        }
     });
-});
+
+    scrollTopBtn.addEventListener('click', () => {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    });
+}
 
 // ========== COUNTER ANIMATION ==========
 const statNumbers = document.querySelectorAll('.stat-number');
@@ -134,6 +208,8 @@ function animateCounters() {
     if (countersActivated) return;
     
     const statsSection = document.querySelector('.statistics');
+    if (!statsSection) return;
+    
     const statsSectionTop = statsSection.offsetTop;
     const statsSectionHeight = statsSection.clientHeight;
     
@@ -141,7 +217,7 @@ function animateCounters() {
         countersActivated = true;
         
         statNumbers.forEach(stat => {
-            const target = parseInt(stat.getAttribute('data-count'));
+            const target = parseInt(stat.getAttribute('data-count')) || 1000;
             const duration = 2000; // 2 seconds
             const increment = target / (duration / 16); // 60 FPS
             let current = 0;
@@ -161,7 +237,7 @@ function animateCounters() {
     }
 }
 
-window.addEventListener('scroll', animateCounters);
+window.addEventListener('scroll', debounce(animateCounters, 10));
 
 // ========== ANIMATE ON SCROLL (AOS) ==========
 const observerOptions = {
@@ -185,35 +261,39 @@ document.querySelectorAll('[data-aos]').forEach(element => {
 // ========== FORM SUBMISSION ==========
 const contactForm = document.getElementById('contactForm');
 
-contactForm.addEventListener('submit', (e) => {
-    e.preventDefault();
-    
-    // Get form data
-    const formData = new FormData(contactForm);
-    const data = Object.fromEntries(formData);
-    
-    // Show success message
-    showNotification('شكراً لتواصلك معنا! سنرد عليك قريباً.', 'success');
-    
-    // Reset form
-    contactForm.reset();
-    
-    // Log data (in production, send to server)
-    console.log('Form Data:', data);
-});
+if (contactForm) {
+    contactForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        
+        // Get form data
+        const formData = new FormData(contactForm);
+        const data = Object.fromEntries(formData);
+        
+        // Show success message
+        showNotification('شكراً لتواصلك معنا! سنرد عليك قريباً.', 'success');
+        
+        // Reset form
+        contactForm.reset();
+        
+        // Log data (in production, send to server)
+        console.log('Form Data:', data);
+    });
+}
 
 // ========== NEWSLETTER FORM ==========
 const newsletterForm = document.querySelector('.newsletter-form');
 
-newsletterForm.addEventListener('submit', (e) => {
-    e.preventDefault();
-    const email = newsletterForm.querySelector('input[type="email"]').value;
-    
-    if (email) {
-        showNotification('تم الاشتراك في النشرة الإخبارية بنجاح!', 'success');
-        newsletterForm.reset();
-    }
-});
+if (newsletterForm) {
+    newsletterForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const email = newsletterForm.querySelector('input[type="email"]').value;
+        
+        if (email) {
+            showNotification('تم الاشتراك في النشرة الإخبارية بنجاح!', 'success');
+            newsletterForm.reset();
+        }
+    });
+}
 
 // ========== NOTIFICATION SYSTEM ==========
 function showNotification(message, type = 'success') {
@@ -268,7 +348,9 @@ function showNotification(message, type = 'success') {
     setTimeout(() => {
         notification.style.animation = 'slideOutRight 0.5s ease';
         setTimeout(() => {
-            notification.remove();
+            if (notification.parentNode) {
+                notification.remove();
+            }
         }, 500);
     }, 4000);
 }
@@ -301,7 +383,7 @@ style.textContent = `
 document.head.appendChild(style);
 
 // ========== PARALLAX EFFECT ==========
-window.addEventListener('scroll', () => {
+window.addEventListener('scroll', debounce(() => {
     const scrolled = window.pageYOffset;
     const heroOverlay = document.querySelector('.hero-overlay');
     const floatingCards = document.querySelectorAll('.floating-card');
@@ -314,7 +396,7 @@ window.addEventListener('scroll', () => {
         const speed = 0.1 + (index * 0.05);
         card.style.transform = `translateY(${scrolled * speed}px)`;
     });
-});
+}, 5));
 
 // ========== MOUSE CURSOR EFFECT ==========
 let cursor = null;
@@ -397,6 +479,12 @@ window.addEventListener('load', () => {
     
     // Trigger initial animations
     document.body.classList.add('loaded');
+    
+    // Final viewport height adjustment
+    setTimeout(() => {
+        setVh();
+        initializeCriticalElements();
+    }, 200);
 });
 
 // ========== LAZY LOADING IMAGES ==========
@@ -414,39 +502,6 @@ const imageObserver = new IntersectionObserver((entries) => {
 });
 
 images.forEach(img => imageObserver.observe(img));
-
-// ========== TYPED TEXT EFFECT ==========
-function typeText(element, text, speed = 100) {
-    let i = 0;
-    element.textContent = '';
-    
-    function type() {
-        if (i < text.length) {
-            element.textContent += text.charAt(i);
-            i++;
-            setTimeout(type, speed);
-        }
-    }
-    
-    type();
-}
-
-// ========== PAGE TRANSITIONS ==========
-function initPageTransitions() {
-    // Add fade-in effect to sections
-    const sections = document.querySelectorAll('section');
-    
-    sections.forEach((section, index) => {
-        section.style.opacity = '0';
-        section.style.transform = 'translateY(50px)';
-        section.style.transition = 'all 0.8s ease';
-        
-        setTimeout(() => {
-            section.style.opacity = '1';
-            section.style.transform = 'translateY(0)';
-        }, index * 100);
-    });
-}
 
 // ========== INTERACTIVE CARDS ==========
 const cards = document.querySelectorAll('.objective-card, .product-card, .value-card');
@@ -495,7 +550,7 @@ function revealOnScroll() {
     });
 }
 
-window.addEventListener('scroll', revealOnScroll);
+window.addEventListener('scroll', debounce(revealOnScroll, 10));
 revealOnScroll(); // Initial check
 
 // ========== FORM VALIDATION ==========
@@ -531,56 +586,34 @@ function createScrollProgress() {
     `;
     document.body.appendChild(progressBar);
     
-    window.addEventListener('scroll', () => {
+    window.addEventListener('scroll', debounce(() => {
         const windowHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
         const scrolled = (window.pageYOffset / windowHeight) * 100;
         progressBar.style.width = scrolled + '%';
-    });
+    }, 5));
 }
 
 createScrollProgress();
-
-// ========== PERFORMANCE OPTIMIZATION ==========
-// Debounce function for scroll events
-function debounce(func, wait = 10) {
-    let timeout;
-    return function executedFunction(...args) {
-        const later = () => {
-            clearTimeout(timeout);
-            func(...args);
-        };
-        clearTimeout(timeout);
-        timeout = setTimeout(later, wait);
-    };
-}
-
-// Apply debounce to scroll events
-window.addEventListener('scroll', debounce(() => {
-    // Optimized scroll handlers
-}, 10));
-
-// ========== PRINT PAGE ==========
-function printPage() {
-    window.print();
-}
 
 // ========== EASTER EGG ==========
 let clickCount = 0;
 const logo = document.querySelector('.logo h1');
 
-logo.addEventListener('click', () => {
-    clickCount++;
-    if (clickCount === 5) {
-        showNotification('🎉 مرحباً بك في موقع شركة زمزم ! 🎉', 'success');
-        clickCount = 0;
-        
-        // Add rainbow animation to logo
-        logo.style.animation = 'rainbow 2s linear infinite';
-        setTimeout(() => {
-            logo.style.animation = '';
-        }, 5000);
-    }
-});
+if (logo) {
+    logo.addEventListener('click', () => {
+        clickCount++;
+        if (clickCount === 5) {
+            showNotification('🎉 مرحباً بك في موقع شركة زمزم ! 🎉', 'success');
+            clickCount = 0;
+            
+            // Add rainbow animation to logo
+            logo.style.animation = 'rainbow 2s linear infinite';
+            setTimeout(() => {
+                logo.style.animation = '';
+            }, 5000);
+        }
+    });
+}
 
 // Add rainbow animation
 const rainbowStyle = document.createElement('style');
@@ -597,9 +630,12 @@ console.log('%c🌊 مرحباً بك في موقع شركة زمزم! 🌊', 'c
 console.log('%cتم تطوير هذا الموقع باستخدام HTML, CSS, JavaScript', 'color: #00d4ff; font-size: 14px;');
 console.log('%c© 2025 Zamzam Company - All Rights Reserved', 'color: #6c757d; font-size: 12px;');
 
-// ========== INITIALIZE ==========
-document.addEventListener('DOMContentLoaded', () => {
+// ========== MAIN INITIALIZATION ==========
+document.addEventListener('DOMContentLoaded', function() {
     console.log('Website initialized successfully!');
+    
+    // Initialize viewport system first
+    initializeViewportSystem();
     
     // Set initial active nav link
     setActiveLink();
@@ -607,5 +643,15 @@ document.addEventListener('DOMContentLoaded', () => {
     // Trigger any initial animations
     setTimeout(() => {
         document.body.classList.add('ready');
-    }, 100);
+        console.log('Website fully ready!');
+    }, 500);
+});
+
+// إعادة التهيئة عند تغيير اتجاه الشاشة
+window.addEventListener('orientationchange', function() {
+    setTimeout(() => {
+        setVh();
+        initializeCriticalElements();
+        console.log('Orientation changed - reinitialized');
+    }, 300);
 });
