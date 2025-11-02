@@ -1,0 +1,1027 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>زمزم | الريادة في الصناعات الغذائية</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #2E86AB;
+            --secondary: #A23B72;
+            --accent: #F18F01;
+            --success: #4CAF50;
+            --light: #F8F9FA;
+            --dark: #2D3047;
+            --text: #333333;
+            --transition: all 0.4s ease;
+            --shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            --radius: 12px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Tajawal', sans-serif;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--light);
+            color: var(--text);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* التصميم العام */
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        section {
+            padding: 80px 0;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-title h2 {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 15px;
+            font-weight: 700;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-title h2:after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            right: 50%;
+            transform: translateX(50%);
+            width: 80px;
+            height: 4px;
+            background: var(--accent);
+            border-radius: 2px;
+        }
+
+        .section-title p {
+            color: var(--dark);
+            max-width: 600px;
+            margin: 0 auto;
+            font-size: 1.1rem;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 14px 32px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: var(--radius);
+            font-weight: 600;
+            text-decoration: none;
+            transition: var(--transition);
+            cursor: pointer;
+            box-shadow: var(--shadow);
+        }
+
+        .btn:hover {
+            background: var(--secondary);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        /* الهيدر العصري */
+        header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            transition: var(--transition);
+            padding: 15px 0;
+        }
+
+        .header-scrolled {
+            padding: 12px 0;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo-icon {
+            width: 45px;
+            height: 45px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.3rem;
+        }
+
+        .logo-text h1 {
+            font-size: 1.8rem;
+            color: var(--primary);
+            font-weight: 800;
+        }
+
+        .logo-text p {
+            font-size: 0.85rem;
+            color: var(--secondary);
+            margin-top: -3px;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 25px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 500;
+            transition: var(--transition);
+            position: relative;
+            padding: 8px 0;
+            font-size: 1rem;
+        }
+
+        .nav-links a:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent);
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .nav-links a:hover:after {
+            width: 100%;
+        }
+
+        .mobile-menu {
+            display: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--primary);
+        }
+
+        /* قسم الهيرو */
+        .hero {
+            min-height: 90vh;
+            background: linear-gradient(135deg, rgba(46, 134, 171, 0.9), rgba(162, 59, 114, 0.8));
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            text-align: center;
+            color: white;
+            position: relative;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .hero-content h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            line-height: 1.2;
+            font-weight: 700;
+        }
+
+        .hero-content p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            opacity: 0.9;
+        }
+
+        .hero-btns {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 30px;
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 2px solid white;
+        }
+
+        .btn-outline:hover {
+            background: white;
+            color: var(--primary);
+        }
+
+        /* قسم الرؤية والرسالة */
+        .vision-mission {
+            background-color: white;
+        }
+
+        .vm-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+        }
+
+        .vm-box {
+            flex: 1;
+            min-width: 300px;
+            background: var(--light);
+            padding: 40px 30px;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            border-top: 4px solid var(--accent);
+        }
+
+        .vm-box:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .vm-icon {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
+
+        .vm-box h3 {
+            font-size: 1.6rem;
+            margin-bottom: 15px;
+            color: var(--primary);
+            font-weight: 700;
+        }
+
+        .vm-box p {
+            color: var(--dark);
+            line-height: 1.7;
+        }
+
+        /* قسم الأهداف */
+        .objectives {
+            background: var(--light);
+        }
+
+        .objectives-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
+        }
+
+        .objective-card {
+            background: white;
+            padding: 30px 25px;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            text-align: center;
+            border-left: 4px solid var(--success);
+        }
+
+        .objective-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .objective-icon {
+            width: 70px;
+            height: 70px;
+            background: var(--primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            color: white;
+            font-size: 1.8rem;
+            transition: var(--transition);
+        }
+
+        .objective-card:hover .objective-icon {
+            background: var(--accent);
+            transform: rotate(5deg);
+        }
+
+        .objective-card h3 {
+            font-size: 1.4rem;
+            margin-bottom: 15px;
+            color: var(--primary);
+            font-weight: 700;
+        }
+
+        .objective-card ul {
+            list-style: none;
+            text-align: right;
+        }
+
+        .objective-card li {
+            margin-bottom: 10px;
+            position: relative;
+            padding-right: 20px;
+            color: var(--dark);
+        }
+
+        .objective-card li:before {
+            content: '•';
+            position: absolute;
+            right: 0;
+            color: var(--accent);
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        /* قسم القيم */
+        .values {
+            background-color: white;
+        }
+
+        .values-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 25px;
+            justify-content: center;
+        }
+
+        .value-item {
+            flex: 1;
+            min-width: 200px;
+            max-width: 250px;
+            text-align: center;
+            padding: 30px 20px;
+            background: var(--light);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            border-bottom: 4px solid var(--secondary);
+        }
+
+        .value-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .value-icon {
+            width: 60px;
+            height: 60px;
+            background: var(--primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 15px;
+            color: white;
+            font-size: 1.5rem;
+            transition: var(--transition);
+        }
+
+        .value-item:hover .value-icon {
+            background: var(--secondary);
+            transform: rotate(10deg);
+        }
+
+        .value-item h3 {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            color: var(--primary);
+            font-weight: 700;
+        }
+
+        .value-item p {
+            color: var(--dark);
+            font-size: 0.95rem;
+        }
+
+        /* قسم نطاق أنشطة الشركة */
+        .scope {
+            background: var(--light);
+        }
+
+        .scope-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 25px;
+        }
+
+        .scope-card {
+            background: white;
+            border-radius: var(--radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            text-align: center;
+        }
+
+        .scope-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .scope-icon {
+            height: 120px;
+            background: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 3rem;
+            transition: var(--transition);
+        }
+
+        .scope-card:hover .scope-icon {
+            background: var(--secondary);
+        }
+
+        .scope-content {
+            padding: 25px 20px;
+        }
+
+        .scope-content h3 {
+            font-size: 1.4rem;
+            margin-bottom: 10px;
+            color: var(--primary);
+            font-weight: 700;
+        }
+
+        .scope-content p {
+            color: var(--dark);
+            font-size: 1rem;
+            line-height: 1.6;
+        }
+
+        /* الفوتر */
+        footer {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 60px 0 20px;
+        }
+
+        .footer-content {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-column {
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .footer-column h3 {
+            font-size: 1.4rem;
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .footer-column h3:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 50px;
+            height: 2px;
+            background: var(--accent);
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .footer-links a:hover {
+            color: var(--accent);
+            padding-right: 5px;
+        }
+
+        .contact-info {
+            list-style: none;
+        }
+
+        .contact-info li {
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+
+        .contact-info i {
+            margin-left: 10px;
+            font-size: 1.1rem;
+            width: 20px;
+            color: var(--accent);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 12px;
+            margin-top: 20px;
+        }
+
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 38px;
+            height: 38px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            color: white;
+            transition: var(--transition);
+        }
+
+        .social-links a:hover {
+            background: var(--accent);
+            color: var(--primary);
+            transform: translateY(-3px);
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        /* تأثيرات خاصة */
+        .floating {
+            animation: floating 4s ease-in-out infinite;
+        }
+
+        @keyframes floating {
+            0% { transform: translate(0, 0px); }
+            50% { transform: translate(0, 10px); }
+            100% { transform: translate(0, -0px); }
+        }
+
+        .animate-on-scroll {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .animate-on-scroll.animated {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* التجاوب مع الشاشات المختلفة */
+        @media (max-width: 992px) {
+            .hero-content h1 {
+                font-size: 2.5rem;
+            }
+            
+            .section-title h2 {
+                font-size: 2.2rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .navbar {
+                padding: 10px 0;
+            }
+            
+            .nav-links {
+                position: fixed;
+                top: 70px;
+                right: -100%;
+                background: white;
+                width: 80%;
+                height: calc(100vh - 70px);
+                flex-direction: column;
+                align-items: center;
+                padding-top: 40px;
+                transition: var(--transition);
+                box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
+            }
+            
+            .nav-links.active {
+                right: 0;
+            }
+            
+            .nav-links li {
+                margin: 0 0 25px 0;
+            }
+            
+            .mobile-menu {
+                display: block;
+            }
+            
+            .hero-content h1 {
+                font-size: 2.2rem;
+            }
+            
+            .hero-content p {
+                font-size: 1.1rem;
+            }
+            
+            .hero-btns {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .btn {
+                width: 80%;
+                margin-bottom: 10px;
+            }
+            
+            .section-title h2 {
+                font-size: 2rem;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .hero-content h1 {
+                font-size: 2rem;
+            }
+            
+            .vm-box, .objective-card, .value-item, .scope-card {
+                min-width: 100%;
+            }
+            
+            .section-title h2 {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- الهيدر العصري -->
+    <header id="header">
+        <div class="container">
+            <nav class="navbar">
+                <div class="logo">
+                    <div class="logo-icon">
+                        <i class="fas fa-industry"></i>
+                    </div>
+                    <div class="logo-text">
+                        <h1>زمزم</h1>
+                        <p>فخر الصناعة اليمنية</p>
+                    </div>
+                </div>
+                <ul class="nav-links">
+                    <li><a href="#home">الرئيسية</a></li>
+                    <li><a href="#vision">الرؤية والرسالة</a></li>
+                    <li><a href="#objectives">الأهداف</a></li>
+                    <li><a href="#values">القيم</a></li>
+                    <li><a href="#scope">نطاق الأنشطة</a></li>
+                    <li><a href="#contact">اتصل بنا</a></li>
+                </ul>
+                <div class="mobile-menu">
+                    <i class="fas fa-bars"></i>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- قسم الهيرو -->
+    <section class="hero" id="home">
+        <div class="container">
+            <div class="hero-content">
+                <h1 class="floating" style="margin-top: 50px;">زمزم .. فخر الصناعة اليمنية</h1>
+                <p>الشركة اليمنية الرائدة في مجال الصناعات الغذائية والمشروبات، تقدم منتجات صحية وآمنة وعالية الجودة تسهم في تعزيز الأمن الغذائي الوطني</p>
+                <div class="hero-btns">
+                    <a href="#scope" class="btn">أنشطتنا</a>
+                    <a href="#vision" class="btn btn-outline">تعرف علينا</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- قسم الرؤية والرسالة -->
+    <section class="vision-mission" id="vision">
+        <div class="container">
+            <div class="section-title">
+                <h2>رؤيتنا ورسالتنا</h2>
+                <p>نسعى لتحقيق التميز في كل ما نقدمه من منتجات وخدمات</p>
+            </div>
+            <div class="vm-container">
+                <div class="vm-box animate-on-scroll">
+                    <div class="vm-icon">
+                        <i class="fas fa-eye"></i>
+                    </div>
+                    <h3>رؤيتنا</h3>
+                    <p>أن نكون الشركة اليمنية الرائدة في مجال الصناعات الغذائية والمشروبات، من خلال تقديم منتجات صحية وآمنة وعالية الجودة، تسهم في تعزيز الأمن الغذائي الوطني وتنافس بقوة في الأسواق الإقليمية، لتصبح رمزًا للفخر بالصناعة اليمنية الحديثة.</p>
+                </div>
+                <div class="vm-box animate-on-scroll">
+                    <div class="vm-icon">
+                        <i class="fas fa-bullseye"></i>
+                    </div>
+                    <h3>رسالتنا</h3>
+                    <p>نلتزم بتصنيع وتسويق مياه شرب نقية ومشروبات غازية وعصائر وألبان وبقوليات بمعايير عالمية، باستخدام تقنيات حديثة وكوادر يمنية مؤهلة، لتلبية احتياجات المستهلكين في اليمن والمنطقة، ضمن إطار من الجودة، والابتكار، والمسؤولية الاجتماعية، والاستدامة البيئية.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- قسم الأهداف -->
+    <section class="objectives" id="objectives">
+        <div class="container">
+            <div class="section-title">
+                <h2>أهدافنا الاستراتيجية</h2>
+                <p>نسعى لتحقيق أهداف طموحة لخدمة عملائنا ومجتمعنا</p>
+            </div>
+            <div class="objectives-grid">
+                <div class="objective-card animate-on-scroll">
+                    <div class="objective-icon">
+                        <i class="fas fa-cogs"></i>
+                    </div>
+                    <h3>التميّز التشغيلي</h3>
+                    <ul>
+                        <li>تطبيق أنظمة الجودة وسلامة الغذاء (ISO 22000 - ISO 9001 - ISO 14001) و HACCP وغيرها.</li>
+                        <li>تطوير خطوط الإنتاج باستخدام أحدث التقنيات.</li>
+                        <li>ضمان رقابة جودة شاملة في جميع مراحل التصنيع.</li>
+                    </ul>
+                </div>
+                <div class="objective-card animate-on-scroll">
+                    <div class="objective-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3>التوسّع في السوق</h3>
+                    <ul>
+                        <li>تعزيز الحضور في جميع محافظات اليمن.</li>
+                        <li>التوجّه نحو السوق الإقليمي ودول الجوار.</li>
+                        <li>بناء شبكة توزيع قوية ومراكز لوجستية فعّال.</li>
+                    </ul>
+                </div>
+                <div class="objective-card animate-on-scroll">
+                    <div class="objective-icon">
+                        <i class="fas fa-boxes"></i>
+                    </div>
+                    <h3>تنويع المنتجات</h3>
+                    <ul>
+                        <li>تطوير منتجات جديدة تلبي احتياجات المستهلك.</li>
+                        <li>التوسع في العصائر الطبيعية والألبان المدعّمة.</li>
+                        <li>إنتاج عبوات بأحجام مختلفة تناسب كافة الفئات.</li>
+                    </ul>
+                </div>
+                <div class="objective-card animate-on-scroll">
+                    <div class="objective-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h3>الاستثمار في الموارد البشرية</h3>
+                    <ul>
+                        <li>تدريب وتأهيل الكوادر الوطنية.</li>
+                        <li>استقطاب الموهوبين وتعزيز روح الابتكار.</li>
+                        <li>بناء ثقافة مؤسسية قائمة على الأداء والجودة.</li>
+                    </ul>
+                </div>
+                <div class="objective-card animate-on-scroll">
+                    <div class="objective-icon">
+                        <i class="fas fa-leaf"></i>
+                    </div>
+                    <h3>الاستدامة والمسؤولية البيئية</h3>
+                    <ul>
+                        <li>ترشيد استهلاك المياه والطاقة.</li>
+                        <li>الاعتماد على مصادر الطاقة النظيفة كالشمسية.</li>
+                        <li>الالتزام بالمعايير البيئية المحلية والدولية.</li>
+                    </ul>
+                </div>
+                <div class="objective-card animate-on-scroll">
+                    <div class="objective-icon">
+                        <i class="fas fa-handshake"></i>
+                    </div>
+                    <h3>تعزيز الثقة بالمنتج الوطني</h3>
+                    <ul>
+                        <li>ترسيخ مفهوم "صنع في اليمن" كرمز للجودة.</li>
+                        <li>تنفيذ حملات تسويقية لتشجيع دعم الإنتاج المحلي.</li>
+                        <li>المشاركة في المعارض المحلية والإقليمية.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- قسم القيم -->
+    <section class="values" id="values">
+        <div class="container">
+            <div class="section-title">
+                <h2>قيمنا الأساسية</h2>
+                <p>القيم التي نؤمن بها ونسير عليها في عملنا</p>
+            </div>
+            <div class="values-container">
+                <div class="value-item animate-on-scroll">
+                    <div class="value-icon">
+                        <i class="fas fa-award"></i>
+                    </div>
+                    <h3>الجودة والتميّز</h3>
+                    <p>تقديم منتجات بمعايير عالمية دون تنازل.</p>
+                </div>
+                <div class="value-item animate-on-scroll">
+                    <div class="value-icon">
+                        <i class="fas fa-balance-scale"></i>
+                    </div>
+                    <h3>الشفافية والنزاهة</h3>
+                    <p>التعامل بأخلاقيات مهنية في جميع مراحل العمل.</p>
+                </div>
+                <div class="value-item animate-on-scroll">
+                    <div class="value-icon">
+                        <i class="fas fa-lightbulb"></i>
+                    </div>
+                    <h3>الابتكار والتطوير</h3>
+                    <p>التحسين المستمر في المنتجات والتقنيات.</p>
+                </div>
+                <div class="value-item animate-on-scroll">
+                    <div class="value-icon">
+                        <i class="fas fa-hands-helping"></i>
+                    </div>
+                    <h3>المسؤولية الاجتماعية</h3>
+                    <p>المساهمة في التنمية الوطنية وخدمة المجتمع.</p>
+                </div>
+                <div class="value-item animate-on-scroll">
+                    <div class="value-icon">
+                        <i class="fas fa-people-carry"></i>
+                    </div>
+                    <h3>العمل الجماعي</h3>
+                    <p>التعاون والشراكة لتحقيق أهداف مشتركة.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- قسم نطاق أنشطة الشركة -->
+    <section class="scope" id="scope">
+        <div class="container">
+            <div class="section-title">
+                <h2>نطاق أنشطة الشركة</h2>
+                <p>مجالات عملنا الرئيسية في الصناعات الغذائية والمشروبات</p>
+            </div>
+            <div class="scope-grid">
+                <div class="scope-card animate-on-scroll">
+                    <div class="scope-icon">
+                        <i class="fas fa-tint"></i>
+                    </div>
+                    <div class="scope-content">
+                        <h3>المياه</h3>
+                        <p>إنتاج وتعبئة مياه الشرب النقية.</p>
+                    </div>
+                </div>
+                <div class="scope-card animate-on-scroll">
+                    <div class="scope-icon">
+                        <i class="fas fa-wine-bottle"></i>
+                    </div>
+                    <div class="scope-content">
+                        <h3>المشروبات الغازية</h3>
+                        <p>تصنيع وتوزيع مشروبات غازية بنكهات متعددة.</p>
+                    </div>
+                </div>
+                <div class="scope-card animate-on-scroll">
+                    <div class="scope-icon">
+                        <i class="fas fa-glass-whiskey"></i>
+                    </div>
+                    <div class="scope-content">
+                        <h3>العصائر</h3>
+                        <p>إنتاج عصائر طبيعية وصحية بمواصفات عالمية.</p>
+                    </div>
+                </div>
+                <div class="scope-card animate-on-scroll">
+                    <div class="scope-icon">
+                        <i class="fas fa-cheese"></i>
+                    </div>
+                    <div class="scope-content">
+                        <h3>الألبان</h3>
+                        <p>إنتاج حليب وألبان ومنتجات مشتقة متنوعة.</p>
+                    </div>
+                </div>
+                <div class="scope-card animate-on-scroll">
+                    <div class="scope-icon">
+                        <i class="fas fa-seedling"></i>
+                    </div>
+                    <div class="scope-content">
+                        <h3>البقوليات</h3>
+                        <p>تعبئة وتوزيع بقوليات غذائية عالية الجودة.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- الفوتر -->
+    <footer id="contact">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>عن زمزم</h3>
+                    <p>الشركة اليمنية الرائدة في مجال الصناعات الغذائية والمشروبات، تقدم منتجات صحية وآمنة وعالية الجودة تسهم في تعزيز الأمن الغذائي الوطني.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3>روابط سريعة</h3>
+                    <ul class="footer-links">
+                        <li><a href="#home">الرئيسية</a></li>
+                        <li><a href="#vision">الرؤية والرسالة</a></li>
+                        <li><a href="#objectives">الأهداف</a></li>
+                        <li><a href="#values">القيم</a></li>
+                        <li><a href="#scope">نطاق الأنشطة</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>اتصل بنا</h3>
+                    <ul class="contact-info">
+                        <li><i class="fas fa-map-marker-alt"></i> صنعاء، اليمن</li>
+                        <li><i class="fas fa-phone"></i> +967 1 123 456</li>
+                        <li><i class="fas fa-envelope"></i> info@zamzam.com</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>جميع الحقوق محفوظة &copy; 2025 شركة زمزم للصناعات الغذائية والمشروبات</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // القائمة المتحركة للهواتف
+        const mobileMenu = document.querySelector('.mobile-menu');
+        const navLinks = document.querySelector('.nav-links');
+        
+        mobileMenu.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+        
+        // إغلاق القائمة عند النقر على رابط
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+            });
+        });
+        
+        // تأثير التمرير للشريط العلوي
+        window.addEventListener('scroll', () => {
+            const header = document.getElementById('header');
+            if (window.scrollY > 100) {
+                header.classList.add('header-scrolled');
+            } else {
+                header.classList.remove('header-scrolled');
+            }
+        });
+
+        // تأثير الظهور عند التمرير
+        const animateOnScroll = () => {
+            const elements = document.querySelectorAll('.animate-on-scroll');
+            
+            elements.forEach(element => {
+                const elementTop = element.getBoundingClientRect().top;
+                const elementVisible = 150;
+                
+                if (elementTop < window.innerHeight - elementVisible) {
+                    element.classList.add('animated');
+                }
+            });
+        };
+
+        // تفعيل تأثير الظهور عند التحميل وعند التمرير
+        window.addEventListener('load', animateOnScroll);
+        window.addEventListener('scroll', animateOnScroll);
+    </script>
+</body>
+</html>
