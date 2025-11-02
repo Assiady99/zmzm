@@ -398,74 +398,6 @@ window.addEventListener('scroll', debounce(() => {
     });
 }, 5));
 
-// ========== MOUSE CURSOR EFFECT ==========
-let cursor = null;
-let cursorFollower = null;
-
-function initCursor() {
-    // Create custom cursor elements
-    cursor = document.createElement('div');
-    cursor.className = 'custom-cursor';
-    cursor.style.cssText = `
-        width: 10px;
-        height: 10px;
-        background: linear-gradient(135deg, #0066cc, #00d4ff);
-        border-radius: 50%;
-        position: fixed;
-        pointer-events: none;
-        z-index: 9999;
-        transition: transform 0.2s ease;
-        mix-blend-mode: difference;
-    `;
-    
-    cursorFollower = document.createElement('div');
-    cursorFollower.className = 'cursor-follower';
-    cursorFollower.style.cssText = `
-        width: 40px;
-        height: 40px;
-        border: 2px solid rgba(0, 102, 204, 0.5);
-        border-radius: 50%;
-        position: fixed;
-        pointer-events: none;
-        z-index: 9998;
-        transition: all 0.3s ease;
-    `;
-    
-    document.body.appendChild(cursor);
-    document.body.appendChild(cursorFollower);
-    
-    // Update cursor position
-    document.addEventListener('mousemove', (e) => {
-        cursor.style.left = e.clientX + 'px';
-        cursor.style.top = e.clientY + 'px';
-        
-        setTimeout(() => {
-            cursorFollower.style.left = (e.clientX - 20) + 'px';
-            cursorFollower.style.top = (e.clientY - 20) + 'px';
-        }, 100);
-    });
-    
-    // Scale up on hover over clickable elements
-    const clickableElements = document.querySelectorAll('a, button, .btn, input, textarea, .value-card, .product-card');
-    
-    clickableElements.forEach(element => {
-        element.addEventListener('mouseenter', () => {
-            cursor.style.transform = 'scale(1.5)';
-            cursorFollower.style.transform = 'scale(1.5)';
-        });
-        
-        element.addEventListener('mouseleave', () => {
-            cursor.style.transform = 'scale(1)';
-            cursorFollower.style.transform = 'scale(1)';
-        });
-    });
-}
-
-// Initialize cursor on desktop only
-if (window.innerWidth > 768) {
-    initCursor();
-}
-
 // ========== LOADING ANIMATION ==========
 window.addEventListener('load', () => {
     // Hide loading screen
@@ -569,31 +501,6 @@ formInputs.forEach(input => {
         this.style.borderColor = '#0066cc';
     });
 });
-
-// ========== SCROLL PROGRESS INDICATOR ==========
-function createScrollProgress() {
-    const progressBar = document.createElement('div');
-    progressBar.className = 'scroll-progress';
-    progressBar.style.cssText = `
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 0%;
-        height: 4px;
-        background: linear-gradient(90deg, #0066cc, #00d4ff);
-        z-index: 9999;
-        transition: width 0.2s ease;
-    `;
-    document.body.appendChild(progressBar);
-    
-    window.addEventListener('scroll', debounce(() => {
-        const windowHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-        const scrolled = (window.pageYOffset / windowHeight) * 100;
-        progressBar.style.width = scrolled + '%';
-    }, 5));
-}
-
-createScrollProgress();
 
 // ========== EASTER EGG ==========
 let clickCount = 0;
